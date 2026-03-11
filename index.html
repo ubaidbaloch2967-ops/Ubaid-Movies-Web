@@ -1,77 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ubaid Movies Web</title>
-    <style>
-        /* 5 Second Loader Styling */
-        #loader-screen {
-            position: fixed; inset: 0; background: #000; z-index: 10000;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            color: #00f2ff; font-family: sans-serif;
-        }
-        .timer-box { font-size: 4rem; border: 2px solid #ff00ea; padding: 10px 40px; border-radius: 15px; box-shadow: 0 0 20px #ff00ea; }
+#app {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+  color: white;
+  text-align: center;
+  overflow: hidden;
+}
 
-        /* Aapki Original Coding ka Design */
-        body { margin: 0; background: #000; overflow: hidden; }
-        #app { display: none; height: 100vh; width: 100vw; }
-        #canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+.hero h1 {
+  font-size: 4rem;
+  color: #e50914; /* Netflix Red style */
+  margin-bottom: 0;
+}
 
-        .hero { 
-            position: absolute; z-index: 10; width: 100%; top: 5%; 
-            text-align: center; color: white; font-family: sans-serif; 
-        }
-        .hero h1 { font-size: 3rem; text-transform: uppercase; margin: 0; }
+.hero h2 {
+  font-size: 2rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
 
-        /* 3D Scene Styling */
-        .scene {
-            height: 100vh; display: grid; place-content: center;
-            perspective: 1000px; position: relative; z-index: 5;
-        }
-        .a3d {
-            --n: 12; transform-style: preserve-3d;
-            display: flex; align-items: center; justify-content: center;
-            animation: rotate 20s linear infinite;
-        }
-        @keyframes rotate {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(360deg); }
-        }
-        .card {
-            position: absolute; width: 180px; height: 250px;
-            border-radius: 10px; border: 1px solid rgba(255,255,255,0.3);
-            object-fit: cover;
-            --angle: calc(var(--i) * (360deg / var(--n)));
-            transform: rotateY(var(--angle)) translateZ(350px);
-        }
-    </style>
-</head>
-<body>
-
-  <div id="loader-screen">
-    <h2 style="margin-bottom: 20px; letter-spacing: 3px;">UBAID MOVIES WEB</h2>
-    <div class="timer-box" id="countdown">5</div>
-  </div>
-
-  <div id="app">
-    <canvas id="canvas"></canvas>
-
-    <div class="hero">
-      <h1>Ubaid Movies Web</h1>
-      <a target="_blank" href="https://www.framer.com/@kevin-levron/" style="color: cyan;">Framer Component</a>
-    </div>
-
-    <div class="scene">
-      <div class="a3d" style="--n: 12">
-        <img class="card" style="--i: 0" src="https://image.tmdb.org/t/p/w500/966mS4vQ96HGp9U6fUo1o6fHG9u.jpg" alt="Pushpa 2">
-        <img class="card" style="--i: 1" src="https://image.tmdb.org/t/p/w500/kSno67pSAtS9pS9pS9pS9pS9pS9.jpg" alt="Avatar 3">
-        <img class="card" style="--i: 2" src="https://image.tmdb.org/t/p/w500/zW6SlvzW6SlvzW6SlvzW6Slv.jpg" alt="Avengers">
-        <img class="card" style="--i: 3" src="https://image.tmdb.org/t/p/w500/8Gxv8Gxv8Gxv8Gxv8Gxv8Gxv.jpg" alt="War 2">
-        <img class="card" style="--i: 4" src="https://image.tmdb.org/t/p/w500/7W6Slv7W6Slv7W6Slv7W6Slv.jpg" alt="Mission Impossible">
-        <img class="card" style="--i: 5" src="https://image.tmdb.org/t/p/w500/1W6Slv1W6Slv1W6Slv1W6Slv.jpg" alt="Animal Park">
-        <img class="card" style="--i: 6" src="https://image.tmdb.org/t/p/w500/2W6Slv2W6Slv2W6Slv2W6Slv.jpg" alt="Spider-man">
-        <img class="card" style="--i: 7" src="https://image.tmdb.org/t/p/w500/3W6Slv3W6Slv3W6Slv3W6Slv.jpg" alt="Pathaan 2">
-        <img class="card" style="--i: 8" src="https://image.tmdb.org/t/p/w500/4W6Slv4W6Slv4W6Slv4W6Slv.jpg" alt="Batman 2">
-        <img class="card" style="--i: 9" src="https://image.tmdb.org/t/p/w500/5W6Slv5W6Slv5W6Slv5W6Slv.jpg" alt="Toxic">
-        <img class="card
+#canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1; /* Canvas background mein rahega */
+}
