@@ -3,33 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baloch Moviz | 2026 Specials</title>
+    <title>Baloch Moviz | SSR Style</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        :root { --neon: #f967fb; --bg: #0f101a; --card: #1e1f2b; }
-        body { background: var(--bg) !important; color: white; font-family: 'Segoe UI', sans-serif; }
+        :root { --neon: #00d2ff; --bg: #0f101a; --card: #ffffff; }
+        body { background: #f1f2f6 !important; color: #333; font-family: 'Arial', sans-serif; }
         
-        nav { background: #000 !important; border-bottom: 2px solid var(--neon); box-shadow: 0 0 10px var(--neon); }
-        .navbar-brand { font-weight: bold; color: var(--neon) !important; letter-spacing: 2px; }
+        /* Navbar */
+        nav { background: #0084b4 !important; border-bottom: 3px solid #005f82; }
+        .navbar-brand { font-weight: bold; color: white !important; letter-spacing: 1px; }
+
+        /* Movie Grid SSR Style */
+        .movie-card { padding: 5px; }
+        .movie-container { background: var(--card); border: 1px solid #ddd; padding: 5px; transition: 0.3s; text-align: center; }
+        .movie-container img { width: 100%; height: auto; border-radius: 2px; }
+        .movie-title { font-size: 0.85rem; font-weight: bold; color: #0084b4; margin-top: 8px; line-height: 1.2; height: 35px; overflow: hidden; }
         
-        .filter-nav { background: #161722; padding: 12px; white-space: nowrap; overflow-x: auto; border-bottom: 1px solid #333; }
-        .btn-filter { color: white; border: 1.5px solid var(--neon); border-radius: 20px; padding: 4px 15px; margin: 0 5px; font-size: 0.8rem; background: transparent; cursor: pointer; }
+        /* Modal Style - High Detail */
+        .modal-content { background: #fff; border-radius: 0; border: 5px solid #0084b4; }
+        .detail-header { border-bottom: 2px solid #eee; margin-bottom: 15px; padding-bottom: 10px; }
+        .info-text { font-size: 0.9rem; color: #444; line-height: 1.5; text-align: left; }
+        .info-text b { color: #000; }
+        
+        /* Screenshots Section */
+        .ss-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; background: #eee; padding: 5px; border: 1px dashed #999; }
+        .ss-grid img { width: 100%; border: 1px solid #fff; }
 
-        .movie-card { padding: 10px; }
-        .movie-container { background: var(--card); border-radius: 10px; overflow: hidden; border: 1px solid #2a2b3d; cursor: pointer; transition: 0.3s; }
-        .movie-container:hover { transform: translateY(-5px); border-color: var(--neon); }
-        .movie-info { background: #111; padding: 8px; text-align: center; }
-        .movie-title { font-size: 0.75rem; font-weight: 600; height: 32px; overflow: hidden; }
-        .btn-download-now { background: var(--neon); color: black !important; border: none; width: 100%; font-size: 0.7rem; font-weight: 800; padding: 6px; text-transform: uppercase; }
+        /* SSR Styled Buttons - EXACT COLORS */
+        .btn-ssr { display: block; width: 100%; padding: 12px; margin: 8px 0; font-weight: bold; color: white !important; text-decoration: none !important; text-align: center; border-radius: 4px; font-size: 0.9rem; }
+        .b-4k { background: #ff1493; }    /* Pink */
+        .b-1080 { background: #a020f0; }  /* Purple */
+        .b-720 { background: #1e90ff; }   /* Blue */
+        .b-480 { background: #ff0000; }   /* Red */
 
-        /* Modal Design Inspired by Screenshot */
-        .modal-content { background: #161722; border: 2px solid var(--neon); border-radius: 15px; color: #ccc; }
-        .modal-header { border-bottom: 1px solid #333; }
-        .movie-meta { font-size: 0.85rem; line-height: 1.6; }
-        .imdb-tag { color: #f5c518; font-weight: bold; }
-        .quality-btn { display: block; width: 100%; margin: 8px 0; padding: 12px; border-radius: 8px; font-weight: bold; color: white !important; text-decoration: none !important; text-align: center; text-transform: uppercase; }
-        .q-1080 { background: #8e44ad; } .q-720 { background: #2980b9; } .q-480 { background: #c0392b; }
-        .ss-area { background: #000; padding: 5px; border-radius: 8px; border: 1px solid #444; }
+        .android-btn { background: #000; color: white; padding: 15px; border-radius: 10px; margin-top: 20px; display: inline-block; width: 100%; }
     </style>
 </head>
 <body>
@@ -37,47 +44,52 @@
     <nav class="navbar navbar-dark sticky-top">
         <a class="navbar-brand">BALOCH MOVIZ</a>
         <form id="search-form" class="form-inline ml-auto">
-            <input id="search-input" class="form-control form-control-sm bg-dark text-white border-secondary" type="search" placeholder="Search Movie...">
+            <input id="search-input" class="form-control form-control-sm" type="search" placeholder="Search Movie...">
         </form>
     </nav>
 
-    <div class="filter-nav text-center">
-        <button onclick="loadByYear(2026)" class="btn-filter active">2026 Movies</button>
-        <button onclick="loadTrending()" class="btn-filter">Trending Now</button>
-        <button onclick="loadByYear(2025)" class="btn-filter">2025 Movies</button>
-    </div>
-
-    <div class="container-fluid mt-4">
-        <div id="movie-grid" class="row px-2">
+    <div class="container-fluid mt-3">
+        <div id="movie-grid" class="row no-gutters">
             </div>
-
-        <div class="d-flex justify-content-center my-5">
-            <button class="btn btn-sm btn-outline-info mx-2 px-4" onclick="changePage(-1)">PREV</button>
-            <button class="btn btn-sm btn-outline-info mx-2 px-4" onclick="changePage(1)">NEXT</button>
+        
+        <div class="d-flex justify-content-center my-4">
+            <button class="btn btn-primary btn-sm mx-1" onclick="changePage(-1)">« Prev</button>
+            <button class="btn btn-primary btn-sm mx-1" onclick="changePage(1)">Next »</button>
         </div>
     </div>
 
     <div class="modal fade" id="dlModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content p-4">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content p-3">
+                <div class="detail-header text-center">
+                    <h5 id="m-title-full" style="color:#0084b4; font-weight:bold;"></h5>
+                </div>
+
                 <div class="row">
-                    <div class="col-md-5">
-                        <img id="modal-movie-img" src="" class="w-100 rounded shadow-lg mb-3">
+                    <div class="col-md-12 info-text">
+                        <p><b>IMDb:</b> <span id="m-rating"></span>/10</p>
+                        <p><b>Genres:</b> <span id="m-genre"></span></p>
+                        <p><b>Stars:</b> <span id="m-cast"></span></p>
+                        <p><b>Story:</b> <span id="m-story"></span></p>
                     </div>
-                    <div class="col-md-7 text-left movie-meta">
-                        <h5 id="modal-movie-title" class="text-white font-weight-bold"></h5>
-                        <p><span class="imdb-tag">IMDb: <span id="m-rating">8.8</span>/10</span> || <span class="text-info">Size: 400MB - 4GB</span></p>
-                        <hr style="background:#333">
-                        <p><strong>Genres:</strong> <span id="m-genre">Action, Sci-Fi</span></p>
-                        <p><strong>Release:</strong> 2026</p>
-                        <p id="m-desc" class="small text-muted">Loading description...</p>
-                        
-                        <div class="mt-3">
-                            <a href="#" id="link-1080" target="_blank" class="quality-btn q-1080">Download 1080p (4K)</a>
-                            <a href="#" id="link-720" target="_blank" class="quality-btn q-720">Download 720p (HD)</a>
-                            <a href="#" id="link-480" target="_blank" class="quality-btn q-480">Download 480p (SD)</a>
-                        </div>
+                </div>
+
+                <h6 class="text-center font-weight-bold my-3">--- ScreenShots ---</h6>
+                <div id="m-screenshots" class="ss-grid">
                     </div>
+
+                <div class="text-center mt-4">
+                    <h5 style="font-size:1.1rem; font-weight:bold;">Get This Full Movie via Fast Single Links</h5>
+                    <hr>
+                    <a href="#" id="l-4k" class="btn-ssr b-4k">Download in 4K (x264) Ultra HD - 5.5GB</a>
+                    <a href="#" id="l-1080" class="btn-ssr b-1080">Watch & Download in 1080p - 2.2GB</a>
+                    <a href="#" id="l-720" class="btn-ssr b-720">Watch & Download in 720p - 1GB</a>
+                    <a href="#" id="l-480" class="btn-ssr b-480">Watch & Download in 480p - 376MB</a>
+                </div>
+
+                <div class="android-btn text-center">
+                    <img src="https://img.icons8.com/color/48/000000/android-os.png" style="width:30px"> 
+                    <b>Download our Android App</b>
                 </div>
             </div>
         </div>
@@ -89,82 +101,28 @@
     <script>
         const API_KEY = "249f222afb1002186f4d88b2b5418b55";
         let page = 1;
-        // Default page load par 2026 ki movies dikhayega
         let activeUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&primary_release_year=2026&sort_by=popularity.desc`;
 
         async function getMovies(url) {
-            const response = await fetch(url + `&page=${page}`);
-            const data = await response.json();
+            const res = await fetch(url + `&page=${page}`);
+            const data = await res.json();
             const grid = document.getElementById("movie-grid");
             grid.innerHTML = "";
 
             data.results.forEach(m => {
-                if(!m.poster_path) return;
                 const year = m.release_date ? m.release_date.split('-')[0] : "2026";
                 const card = document.createElement("div");
                 card.className = "col-6 col-md-3 col-lg-2 movie-card";
                 card.innerHTML = `
-                    <div class="movie-container" onclick="showDL('${m.id}')">
-                        <img src="https://image.tmdb.org/t/p/w500${m.poster_path}" class="w-100">
-                        <div class="movie-info">
-                            <div class="movie-title">${m.title}</div>
-                        </div>
-                        <button class="btn-download-now">DOWNLOAD NOW</button>
+                    <div class="movie-container" onclick="showSSRDetail('${m.id}')">
+                        <img src="https://image.tmdb.org/t/p/w500${m.poster_path}">
+                        <div class="movie-title">${m.title} ${year} Dual Audio Hindi (ORG)</div>
                     </div>`;
                 grid.appendChild(card);
             });
         }
 
-        // Click karne par detail fetch karega (Rating aur Genre ke liye)
-        async function showDL(id) {
-            const res = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`);
-            const m = await res.json();
-            
-            document.getElementById("modal-movie-title").innerText = m.title + " (2026)";
-            document.getElementById("modal-movie-img").src = "https://image.tmdb.org/t/p/w500" + m.poster_path;
-            document.getElementById("m-rating").innerText = m.vote_average || "7.5";
-            document.getElementById("m-genre").innerText = m.genres.map(g => g.name).join(", ");
-            document.getElementById("m-desc").innerText = m.overview.substring(0, 150) + "...";
-            
-            const q = encodeURIComponent(m.title + " 2026 hindi dubbed");
-            document.getElementById("link-1080").href = `https://www.google.com/search?q=site:ssrmovies.re+${q}+1080p`;
-            document.getElementById("link-720").href = `https://www.google.com/search?q=site:linkszilla.top+${q}+720p`;
-            document.getElementById("link-480").href = `https://www.google.com/search?q=${q}+480p+direct+download`;
-            
-            $('#dlModal').modal('show');
-        }
-
-        function loadByYear(y) { 
-            page = 1; 
-            activeUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&primary_release_year=${y}&sort_by=popularity.desc`; 
-            getMovies(activeUrl); 
-        }
-
-        function loadTrending() { 
-            page = 1; 
-            activeUrl = `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`; 
-            getMovies(activeUrl); 
-        }
-
-        function changePage(v) { 
-            page += v; 
-            if(page < 1) page = 1; 
-            getMovies(activeUrl); 
-            window.scrollTo(0,0); 
-        }
-
-        document.getElementById("search-form").onsubmit = (e) => {
-            e.preventDefault();
-            const val = document.getElementById("search-input").value;
-            if(val) { 
-                page = 1; 
-                activeUrl = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${val}`; 
-                getMovies(activeUrl); 
-            }
-        };
-
-        // Website khulte hi movies load hongee
-        getMovies(activeUrl);
-    </script>
-</body>
-</html>
+        async function showSSRDetail(id) {
+            // Fetch Movie Details, Credits (Cast), and Images
+            const [detailRes, creditRes, imageRes] = await Promise.all([
+                fetch(`https://api.themoviedb.org/3/movie/${id}?api
