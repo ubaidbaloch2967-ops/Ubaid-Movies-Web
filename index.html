@@ -3,117 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baloch Moviz | Welcome</title>
+    <title>Baloch Movies | Intro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&display=swap" rel="stylesheet">
+    
     <style>
-        /* Original Animation Styles */
-        body, html {
+        body, html, #app {
             margin: 0;
-            padding: 0;
             width: 100%;
             height: 100%;
             background-color: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             overflow: hidden;
-            font-family: 'Arial Black', sans-serif;
         }
-
-        .container {
-            text-align: center;
-            position: relative;
-            z-index: 10;
-        }
-
-        /* Neon Lines Animation Effect */
-        .neon-bg {
+        #app { font-family: "Montserrat", sans-serif; }
+        .hero {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 300px;
-            height: 150px;
-            background: transparent;
-            z-index: -1;
-        }
-
-        .neon-lines {
-            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            border-radius: 50%;
-            box-shadow: 0 0 20px #f967fb, 0 0 40px #f967fb, 0 0 60px #f967fb;
-            filter: blur(20px);
-            opacity: 0.6;
-            animation: pulse 2s infinite ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            pointer-events: none;
         }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.6; }
-            50% { transform: scale(1.2); opacity: 0.9; }
-        }
-
-        /* Branding Text */
         h1 {
-            font-size: 4rem;
+            font-size: clamp(3rem, 10vw, 6rem);
             color: white;
+            text-transform: uppercase;
+            font-weight: 900;
             margin: 0;
             letter-spacing: 15px;
-            text-transform: uppercase;
-            animation: fadeIn 2s ease-in forwards;
         }
-
-        p {
+        h3 {
             color: #888;
-            font-size: 1.2rem;
-            letter-spacing: 5px;
-            margin-top: -10px;
-            text-transform: lowercase;
-            opacity: 0;
-            animation: fadeIn 2s ease-in 1s forwards;
+            font-weight: 400;
+            letter-spacing: 8px;
+            margin-top: 5px;
+            text-transform: uppercase;
         }
-
-        /* Professional Button */
-        .enter-btn {
-            margin-top: 50px;
-            padding: 12px 40px;
-            background: transparent;
-            color: white;
-            border: 1px solid #444;
-            border-radius: 30px;
+        /* SAHI LINK STYLE */
+        .hero a {
+            pointer-events: auto;
             text-decoration: none;
-            font-size: 0.9rem;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.4);
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 14px;
+            margin-top: 30px;
+            text-transform: uppercase;
             letter-spacing: 2px;
-            display: inline-block;
-            transition: 0.5s;
-            opacity: 0;
-            animation: fadeIn 2s ease-in 2s forwards;
+            transition: 0.4s;
+            background: rgba(0,0,0,0.5);
         }
-
-        .enter-btn:hover {
-            background: white;
-            color: black;
-            box-shadow: 0 0 20px rgba(255,255,255,0.5);
+        .hero a:hover {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 0 20px #fff;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        canvas { display: block; width: 100%; height: 100%; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="neon-bg">
-            <div class="neon-lines"></div>
-        </div>
+<div id="app">
+  <canvas id="canvas"></canvas>
+  <div class="hero">
+    <h1>Baloch</h1>
+    <h3>Movies</h3>
+    <a href="./home.html">Baloch Movies Downloading Website</a>
+  </div>
+</div>
 
-        <h1>BALOCH</h1>
-        <p>movies</p>
+<script type="module">
+    import TubesCursor from "https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js"
 
-        <a href="home.html" class="enter-btn">BALOCH MOVIES DOWNLOADING WEBSITE</a>
-    </div>
+    const app = TubesCursor(document.getElementById('canvas'), {
+        tubes: {
+            colors: ["#f967fb", "#53bc28", "#6958d5"],
+            lights: {
+                intensity: 200,
+                colors: ["#83f36e", "#fe8a2e", "#ff008a", "#60aed5"]
+            }
+        }
+    })
+
+    document.body.addEventListener('click', () => {
+        const colors = randomColors(3)
+        const lightsColors = randomColors(4)
+        app.tubes.setColors(colors)
+        app.tubes.setLightsColors(lightsColors)
+    })
+
+    function randomColors (count) {
+        return new Array(count).fill(0).map(() => "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0'))
+    }
+
+    // AUTO REDIRECT: 5 seconds baad khud agle page par le jayega
+    setTimeout(() => {
+        window.location.href = "./home.html";
+    }, 5000);
+</script>
 
 </body>
 </html>
