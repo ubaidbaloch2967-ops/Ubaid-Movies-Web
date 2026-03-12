@@ -14,15 +14,7 @@
             background-color: #000;
             overflow: hidden;
         }
-
-        body {
-            touch-action: none;
-        }
-
-        #app {
-            font-family: "Montserrat", sans-serif;
-        }
-
+        #app { font-family: "Montserrat", sans-serif; }
         .hero {
             position: absolute;
             top: 0;
@@ -36,7 +28,6 @@
             z-index: 10;
             pointer-events: none;
         }
-
         h1 {
             font-size: clamp(3rem, 10vw, 6rem);
             color: white;
@@ -44,9 +35,7 @@
             font-weight: 900;
             margin: 0;
             letter-spacing: 15px;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
         }
-
         h3 {
             color: #888;
             font-weight: 400;
@@ -54,10 +43,9 @@
             margin-top: 5px;
             text-transform: uppercase;
         }
-
-        /* Link/Button Styling */
+        /* SAHI LINK STYLE */
         .hero a {
-            pointer-events: auto; /* Isse click kaam karega */
+            pointer-events: auto;
             text-decoration: none;
             color: #fff;
             border: 1px solid rgba(255,255,255,0.4);
@@ -68,20 +56,14 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             transition: 0.4s;
-            background: rgba(0,0,0,0.3);
+            background: rgba(0,0,0,0.5);
         }
-
         .hero a:hover {
             background: #fff;
             color: #000;
-            box-shadow: 0 0 30px #fff;
+            box-shadow: 0 0 20px #fff;
         }
-
-        canvas {
-            display: block;
-            width: 100%;
-            height: 100%;
-        }
+        canvas { display: block; width: 100%; height: 100%; }
     </style>
 </head>
 <body>
@@ -91,12 +73,11 @@
   <div class="hero">
     <h1>Baloch</h1>
     <h3>Movies</h3>
-    <a href="home.html">Baloch Movies Downloading Website</a>
+    <a href="./home.html">Baloch Movies Downloading Website</a>
   </div>
 </div>
 
 <script type="module">
-    // Tubes Cursor Effect JS
     import TubesCursor from "https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js"
 
     const app = TubesCursor(document.getElementById('canvas'), {
@@ -109,7 +90,6 @@
         }
     })
 
-    // Screen click par colors badalna
     document.body.addEventListener('click', () => {
         const colors = randomColors(3)
         const lightsColors = randomColors(4)
@@ -118,14 +98,12 @@
     })
 
     function randomColors (count) {
-        return new Array(count)
-            .fill(0)
-            .map(() => "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0'))
+        return new Array(count).fill(0).map(() => "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0'))
     }
 
-    // AUTO REDIRECT (5 Seconds baad khud agla page khul jayega)
+    // AUTO REDIRECT: 5 seconds baad khud agle page par le jayega
     setTimeout(() => {
-        window.location.href = "home.html";
+        window.location.href = "./home.html";
     }, 5000);
 </script>
 
