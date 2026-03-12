@@ -3,45 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baloch Movies | Intro</title>
+    <title>Baloch Moviz | Welcome</title>
     <style>
-        body { margin: 0; overflow: hidden; background-color: #000; font-family: 'Montserrat', sans-serif; }
-        canvas { display: block; position: fixed; top: 0; left: 0; z-index: 1; }
-        .hero { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; width: 100%; z-index: 10; pointer-events: none; }
-        .hero h1 { color: white; font-size: clamp(2.5rem, 12vw, 5rem); margin: 0; letter-spacing: 10px; font-weight: bold; text-transform: uppercase; }
-        .hero h3 { color: rgba(255, 255, 255, 0.5); font-size: 1rem; margin: 0 0 25px 0; letter-spacing: 4px; }
-        .btn-download { display: inline-block; padding: 12px 20px; border: 1.5px solid rgba(255, 255, 255, 0.3); border-radius: 50px; color: white; text-decoration: none; font-size: 0.75rem; font-weight: bold; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px); pointer-events: auto; transition: 0.3s; width: 85%; max-width: 300px; white-space: nowrap; }
-        .btn-download:active { transform: scale(0.95); background: rgba(249, 103, 251, 0.3); }
+        /* Original Animation Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-family: 'Arial Black', sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Neon Lines Animation Effect */
+        .neon-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 150px;
+            background: transparent;
+            z-index: -1;
+        }
+
+        .neon-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            box-shadow: 0 0 20px #f967fb, 0 0 40px #f967fb, 0 0 60px #f967fb;
+            filter: blur(20px);
+            opacity: 0.6;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.2); opacity: 0.9; }
+        }
+
+        /* Branding Text */
+        h1 {
+            font-size: 4rem;
+            color: white;
+            margin: 0;
+            letter-spacing: 15px;
+            text-transform: uppercase;
+            animation: fadeIn 2s ease-in forwards;
+        }
+
+        p {
+            color: #888;
+            font-size: 1.2rem;
+            letter-spacing: 5px;
+            margin-top: -10px;
+            text-transform: lowercase;
+            opacity: 0;
+            animation: fadeIn 2s ease-in 1s forwards;
+        }
+
+        /* Professional Button */
+        .enter-btn {
+            margin-top: 50px;
+            padding: 12px 40px;
+            background: transparent;
+            color: white;
+            border: 1px solid #444;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            display: inline-block;
+            transition: 0.5s;
+            opacity: 0;
+            animation: fadeIn 2s ease-in 2s forwards;
+        }
+
+        .enter-btn:hover {
+            background: white;
+            color: black;
+            box-shadow: 0 0 20px rgba(255,255,255,0.5);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
-    <canvas id="canvas"></canvas>
-    <div class="hero">
+
+    <div class="container">
+        <div class="neon-bg">
+            <div class="neon-lines"></div>
+        </div>
+
         <h1>BALOCH</h1>
-        <h3>MOVIES</h3>
-        <a href="javascript:void(0)" onclick="startPage(this)" class="btn-download">BALOCH MOVIES DOWNLOADING WEBSITE</a>
+        <p>movies</p>
+
+        <a href="home.html" class="enter-btn">BALOCH MOVIES DOWNLOADING WEBSITE</a>
     </div>
 
-    <script type="importmap">
-        { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js", "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/" } }
-    </script>
-    <script type="module">
-        import * as THREE from 'three';
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas'), antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
-        const material = new THREE.MeshBasicMaterial({ color: 0xf967fb, wireframe: true });
-        const torusKnot = new THREE.Mesh(geometry, material);
-        scene.add(torusKnot);
-        camera.position.z = 30;
-        function animate() { requestAnimationFrame(animate); torusKnot.rotation.x += 0.01; torusKnot.rotation.y += 0.01; renderer.render(scene, camera); }
-        animate();
-        window.addEventListener('resize', () => { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); });
-    </script>
-    <script>
-        function startPage(btn) { btn.innerHTML = "LOADING..."; setTimeout(() => { window.location.href = "home.html"; }, 800); }
-    </script>
 </body>
 </html>
