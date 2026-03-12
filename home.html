@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baloch Movies | Finder</title>
+    <title>Baloch Movies | Search & Download</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     
     <style>
@@ -14,91 +14,118 @@
             --color4: #83cfdf;
             --color5: #13688c;
             --color6: #373b69;
+            --neon-pink: #f967fb;
         }
 
         body {
             background: var(--color6) !important;
             color: white;
             min-height: 100vh;
+            font-family: 'Montserrat', sans-serif;
         }
 
         nav {
-            background: #6065ac !important;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            background: #222 !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
         nav a.navbar-brand {
-            color: #ebe5e2 !important;
+            color: var(--neon-pink) !important;
             font-size: 1.8rem !important;
             font-weight: bold;
+            letter-spacing: 2px;
         }
 
         .movie-card {
             padding: 15px;
-            margin-bottom: 20px;
-            transition: transform 0.3s;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
         }
 
         .movie-card:hover {
-            transform: scale(1.05);
+            transform: translateY(-10px);
         }
 
-        .movie-card img {
+        .movie-container {
+            background: var(--color2);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid #444;
+        }
+
+        .movie-container img {
             width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            height: auto;
+        }
+
+        .movie-info {
+            padding: 15px;
+            text-align: center;
         }
 
         .movie-title {
-            margin-top: 10px;
-            font-size: 1rem;
-            text-align: center;
+            font-size: 0.9rem;
             font-weight: bold;
-            color: var(--color3);
+            margin-bottom: 10px;
+            height: 40px;
+            overflow: hidden;
+        }
+
+        /* Download Button Styling */
+        .download-btn {
+            background: var(--neon-pink);
+            color: black !important;
+            font-weight: bold;
+            font-size: 12px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            text-decoration: none !important;
+            display: block;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        .download-btn:hover {
+            background: white;
+            box-shadow: 0 0 15px var(--neon-pink);
+            transform: scale(1.05);
         }
 
         #search {
-            border-radius: 20px;
-            padding: 5px 20px;
+            border-radius: 25px;
+            border: 2px solid var(--neon-pink);
+            background: rgba(0,0,0,0.3);
+            color: white;
         }
 
-        .pagination {
-            margin: 40px 0;
-        }
-
-        .page-link {
+        .pagination .page-link {
             background: var(--color2) !important;
-            color: white !important;
-            border: none !important;
+            border: none;
+            color: white;
             margin: 0 5px;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
 
-    <nav class="fixed-top d-flex justify-content-center navbar p-2">
-        <a href="index.html" class="p-0 navbar-brand d-none d-lg-block">Movie Finder</a>
-        <form id="search-form" class="form-inline ml-lg-4">
-            <input id="search" class="form-control mr-sm-2" type="search" placeholder="Search Movie..." aria-label="Search" />
+    <nav class="fixed-top d-flex justify-content-between align-items-center navbar p-2 px-4">
+        <a href="index.html" class="navbar-brand">BALOCH MOVIES</a>
+        <form id="search-form" class="form-inline">
+            <input id="search" class="form-control" type="search" placeholder="Search for a movie..." aria-label="Search" />
         </form>
     </nav>
 
-    <section>
-        <div class="container-fluid mt-5 p-5">
-            <div id="movie-content" class="row d-flex justify-content-center">
-                <p>Loading movies...</p>
+    <div class="container-fluid mt-5 pt-5">
+        <div id="movie-content" class="row d-flex justify-content-center">
             </div>
-        </div>
-    </section>
+    </div>
 
-    <nav aria-label="Page navigation example">
+    <nav aria-label="Page navigation" class="my-5">
         <ul class="pagination justify-content-center">
-            <li class="page-item">
-                <a id="previous" class="btn page-link">Previous</a>
-            </li>
-            <li class="page-item">
-                <a id="next" class="btn page-link">Next</a>
-            </li>
+            <li class="page-item"><a id="previous" class="btn page-link">Previous</a></li>
+            <li class="page-item"><a id="next" class="btn page-link">Next</a></li>
         </ul>
     </nav>
 
@@ -107,14 +134,13 @@
         const IMAGE_PATH = "https://image.tmdb.org/t/p/w500";
         let page = 1;
 
-        const API_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&page=`;
+        const API_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&sort_by=popularity.desc&page=`;
         const API_SEARCH = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=`;
 
         const mainContent = document.getElementById("movie-content");
         const form = document.getElementById("search-form");
         const search = document.getElementById("search");
 
-        // Movies fetch karne ka function
         async function getMovies(url) {
             const resp = await fetch(url);
             const respData = await resp.json();
@@ -124,29 +150,33 @@
         function showMovies(movies) {
             mainContent.innerHTML = "";
             movies.forEach((movie) => {
-                const { poster_path, title, vote_average } = movie;
+                const { poster_path, title, id } = movie;
                 const movieEl = document.createElement("div");
                 movieEl.classList.add("col-6", "col-md-4", "col-lg-2", "movie-card");
 
+                // Google search download link generate kar raha hai
+                const downloadLink = `https://www.google.com/search?q=download+movie+${title.replace(/\s+/g, '+')}+1080p`;
+
                 movieEl.innerHTML = `
-                    <img src="${poster_path ? IMAGE_PATH + poster_path : 'https://via.placeholder.com/500x750?text=No+Image'}" alt="${title}">
-                    <div class="movie-title">${title}</div>
-                    <div class="text-center"><span class="badge badge-warning">${vote_average}</span></div>
+                    <div class="movie-container">
+                        <img src="${poster_path ? IMAGE_PATH + poster_path : 'https://via.placeholder.com/500x750'}" alt="${title}">
+                        <div class="movie-info">
+                            <div class="movie-title">${title}</div>
+                            <a href="${downloadLink}" target="_blank" class="download-btn">Download Now</a>
+                        </div>
+                    </div>
                 `;
                 mainContent.appendChild(movieEl);
             });
         }
 
-        // Search event
         form.addEventListener("submit", (e) => {
             e.preventDefault();
-            const searchTerm = search.value;
-            if (searchTerm) {
-                getMovies(API_SEARCH + searchTerm);
+            if (search.value) {
+                getMovies(API_SEARCH + search.value);
             }
         });
 
-        // Pagination buttons
         document.getElementById("next").addEventListener("click", () => {
             page++;
             getMovies(API_URL + page);
@@ -161,7 +191,6 @@
             }
         });
 
-        // Pehli baar load karne ke liye
         getMovies(API_URL + page);
     </script>
 </body>
