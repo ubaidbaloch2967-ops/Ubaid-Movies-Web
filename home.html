@@ -3,195 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baloch Movies | Search & Download</title>
+    <title>Baloch Movies | Direct Download</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        :root {
-            --color1: #708ed2;
-            --color2: #272532;
-            --color3: #ebe5e2;
-            --color4: #83cfdf;
-            --color5: #13688c;
-            --color6: #373b69;
-            --neon-pink: #f967fb;
-        }
+        :root { --neon-pink: #f967fb; --bg-dark: #0f101a; --card-bg: #1e1f2b; }
+        body { background: var(--bg-dark) !important; color: white; font-family: 'Montserrat', sans-serif; }
+        nav { background: #000 !important; border-bottom: 2px solid var(--neon-pink); }
+        .navbar-brand { color: var(--neon-pink) !important; font-weight: bold; font-size: 1.5rem; }
 
-        body {
-            background: var(--color6) !important;
-            color: white;
-            min-height: 100vh;
-            font-family: 'Montserrat', sans-serif;
-        }
+        .movie-card { padding: 10px; margin-bottom: 20px; cursor: pointer; }
+        .movie-container { background: var(--card-bg); border-radius: 10px; overflow: hidden; border: 1px solid #333; transition: 0.3s; }
+        .movie-container:hover { border-color: var(--neon-pink); transform: scale(1.03); }
+        
+        .movie-info { padding: 10px; text-align: center; }
+        .movie-title { font-size: 0.85rem; font-weight: bold; margin-bottom: 2px; }
+        .movie-year { font-size: 0.75rem; color: var(--neon-pink); }
 
-        nav {
-            background: #222 !important;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-        }
+        /* Modal Styling */
+        .modal-content { background: #161722; border: 1px solid var(--neon-pink); border-radius: 15px; }
+        .screenshot-box { background: #000; padding: 5px; border: 1px solid #444; border-radius: 5px; margin-bottom: 15px; }
+        .screenshot-label { background: #333; color: #fff; font-size: 12px; padding: 2px 10px; display: inline-block; margin-bottom: 5px; }
+        
+        .dl-btn { display: block; width: 100%; margin: 8px 0; padding: 12px; font-weight: bold; border-radius: 5px; text-transform: uppercase; text-decoration: none !important; color: white !important; }
+        .btn-1080p { background: #8e44ad; } 
+        .btn-720p { background: #2980b9; }  
+        .btn-480p { background: #c0392b; }  
+        .dl-btn:hover { opacity: 0.8; box-shadow: 0 0 10px rgba(255,255,255,0.2); }
 
-        nav a.navbar-brand {
-            color: var(--neon-pink) !important;
-            font-size: 1.8rem !important;
-            font-weight: bold;
-            letter-spacing: 2px;
-        }
-
-        .movie-card {
-            padding: 15px;
-            margin-bottom: 30px;
-            transition: transform 0.3s ease;
-        }
-
-        .movie-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .movie-container {
-            background: var(--color2);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 1px solid #444;
-        }
-
-        .movie-container img {
-            width: 100%;
-            height: auto;
-        }
-
-        .movie-info {
-            padding: 15px;
-            text-align: center;
-        }
-
-        .movie-title {
-            font-size: 0.9rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            height: 40px;
-            overflow: hidden;
-        }
-
-        /* Download Button Styling */
-        .download-btn {
-            background: var(--neon-pink);
-            color: black !important;
-            font-weight: bold;
-            font-size: 12px;
-            padding: 8px 15px;
-            border-radius: 20px;
-            text-decoration: none !important;
-            display: block;
-            transition: 0.3s;
-            text-transform: uppercase;
-        }
-
-        .download-btn:hover {
-            background: white;
-            box-shadow: 0 0 15px var(--neon-pink);
-            transform: scale(1.05);
-        }
-
-        #search {
-            border-radius: 25px;
-            border: 2px solid var(--neon-pink);
-            background: rgba(0,0,0,0.3);
-            color: white;
-        }
-
-        .pagination .page-link {
-            background: var(--color2) !important;
-            border: none;
-            color: white;
-            margin: 0 5px;
-            border-radius: 5px;
-        }
+        #search { border-radius: 20px; border: 1px solid var(--neon-pink); background: #222; color: #fff; }
     </style>
 </head>
 <body>
 
-    <nav class="fixed-top d-flex justify-content-between align-items-center navbar p-2 px-4">
+    <nav class="fixed-top navbar p-2 px-4 d-flex justify-content-between">
         <a href="index.html" class="navbar-brand">BALOCH MOVIES</a>
         <form id="search-form" class="form-inline">
-            <input id="search" class="form-control" type="search" placeholder="Search for a movie..." aria-label="Search" />
+            <input id="search" class="form-control" type="search" placeholder="Search..." aria-label="Search">
         </form>
     </nav>
 
     <div class="container-fluid mt-5 pt-5">
-        <div id="movie-content" class="row d-flex justify-content-center">
-            </div>
+        <div id="movie-content" class="row d-flex justify-content-center"></div>
     </div>
 
-    <nav aria-label="Page navigation" class="my-5">
-        <ul class="pagination justify-content-center">
-            <li class="page-item"><a id="previous" class="btn page-link">Previous</a></li>
-            <li class="page-item"><a id="next" class="btn page-link">Next</a></li>
-        </ul>
-    </nav>
+    <div class="modal fade" id="downloadModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title w-100 text-center" id="modalTitle">Movie Name</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="screenshot-box">
+                        <span class="screenshot-label">ScreenShots</span>
+                        <img id="movieBackdrop" src="" class="w-100" style="border-radius: 5px; filter: brightness(0.8);">
+                    </div>
+
+                    <div style="border-top: 1px dashed #555; padding-top: 15px;">
+                        <p class="small text-muted mb-3">|| Direct Download Links ||</p>
+                        <a href="#" id="dl1080" target="_blank" class="dl-btn btn-1080p">Download 1080p (Direct)</a>
+                        <a href="#" id="dl720" target="_blank" class="dl-btn btn-720p">Download 720p (Fast)</a>
+                        <a href="#" id="dl480" target="_blank" class="dl-btn btn-480p">Download 480p (Small)</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         const API_KEY = "249f222afb1002186f4d88b2b5418b55";
-        const IMAGE_PATH = "https://image.tmdb.org/t/p/w500";
-        let page = 1;
+        const IMG_URL = "https://image.tmdb.org/t/p/w500";
+        const main = document.getElementById("movie-content");
 
-        const API_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&sort_by=popularity.desc&page=`;
-        const API_SEARCH = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=`;
-
-        const mainContent = document.getElementById("movie-content");
-        const form = document.getElementById("search-form");
-        const search = document.getElementById("search");
-
-        async function getMovies(url) {
-            const resp = await fetch(url);
-            const respData = await resp.json();
-            showMovies(respData.results);
-        }
-
-        function showMovies(movies) {
-            mainContent.innerHTML = "";
-            movies.forEach((movie) => {
-                const { poster_path, title, id } = movie;
-                const movieEl = document.createElement("div");
-                movieEl.classList.add("col-6", "col-md-4", "col-lg-2", "movie-card");
-
-                // Google search download link generate kar raha hai
-                const downloadLink = `https://www.google.com/search?q=download+movie+${title.replace(/\s+/g, '+')}+1080p`;
-
-                movieEl.innerHTML = `
-                    <div class="movie-container">
-                        <img src="${poster_path ? IMAGE_PATH + poster_path : 'https://via.placeholder.com/500x750'}" alt="${title}">
+        async function fetchMovies(url) {
+            const res = await fetch(url);
+            const data = await res.json();
+            data.results.forEach(movie => {
+                const { title, poster_path, release_date, backdrop_path } = movie;
+                const year = release_date ? release_date.split('-')[0] : "N/A";
+                const card = document.createElement("div");
+                card.classList.add("col-6", "col-md-3", "col-lg-2", "movie-card");
+                card.innerHTML = `
+                    <div class="movie-container" onclick="showDL('${title}', '${year}', '${backdrop_path}')">
+                        <img src="${IMG_URL + poster_path}" class="w-100">
                         <div class="movie-info">
                             <div class="movie-title">${title}</div>
-                            <a href="${downloadLink}" target="_blank" class="download-btn">Download Now</a>
+                            <div class="movie-year">${year}</div>
                         </div>
-                    </div>
-                `;
-                mainContent.appendChild(movieEl);
+                    </div>`;
+                main.appendChild(card);
             });
         }
 
-        form.addEventListener("submit", (e) => {
-            e.preventDefault();
-            if (search.value) {
-                getMovies(API_SEARCH + search.value);
-            }
-        });
+        function showDL(name, year, bg) {
+            document.getElementById("modalTitle").innerText = name;
+            document.getElementById("movieBackdrop").src = IMG_URL + bg;
+            
+            // Direct Download Links Logic
+            // Ye links user ko direct SSRMovies ya similar sites ke result page par le jayenge
+            const searchTag = encodeURIComponent(name + " " + year + " direct download");
+            document.getElementById("dl1080").href = `https://www.google.com/search?q=site:ssrmovies.re+${searchTag}+1080p`;
+            document.getElementById("dl720").href = `https://www.google.com/search?q=site:linkszilla.top+${searchTag}+720p`;
+            document.getElementById("dl480").href = `https://www.google.com/search?q=${searchTag}+480p+direct+link`;
+            
+            $('#downloadModal').modal('show');
+        }
 
-        document.getElementById("next").addEventListener("click", () => {
-            page++;
-            getMovies(API_URL + page);
-            window.scrollTo(0, 0);
-        });
-
-        document.getElementById("previous").addEventListener("click", () => {
-            if (page > 1) {
-                page--;
-                getMovies(API_URL + page);
-                window.scrollTo(0, 0);
-            }
-        });
-
-        getMovies(API_URL + page);
+        fetchMovies(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&sort_by=popularity.desc&page=1`);
     </script>
 </body>
 </html>
