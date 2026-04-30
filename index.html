@@ -3,80 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baloch Moviz | Enter Site</title>
+    <title>Baloch Moviz | Welcome</title>
     <style>
-        /* Full Screen Black Background */
+        /* Full Screen Setup */
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
             background-color: #000; overflow: hidden;
-            font-family: 'Arial Black', sans-serif;
             display: flex; justify-content: center; align-items: center;
-            cursor: pointer; /* Taaki user ko pata chale click karna hai */
+            font-family: 'Arial Black', sans-serif;
+            cursor: pointer; /* Click karne ka ishara */
         }
 
-        /* Intro Wrapper */
-        #intro-screen {
+        /* Pure Screen Overlay */
+        #click-layer {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            display: flex; flex-direction: column; justify-content: center;
-            align-items: center; z-index: 999; transition: opacity 1s ease;
-        }
-
-        /* Neon Glow Effect */
-        .neon-swirl {
-            position: absolute; width: 350px; height: 180px;
-            background: transparent; z-index: -1;
-            box-shadow: 0 0 30px #f967fb, 0 0 60px #f967fb;
-            border-radius: 50%; filter: blur(35px);
-            animation: pulse 2.5s infinite ease-in-out;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.3); opacity: 0.8; }
-        }
-
-        /* Branding Text */
-        .brand-name {
-            font-size: 4.5rem; color: #fff; letter-spacing: 12px;
-            text-transform: uppercase; margin: 0;
-            text-shadow: 0 0 10px rgba(255,255,255,0.8);
-        }
-
-        .sub-text {
-            color: #888; font-size: 1.1rem; letter-spacing: 4px;
-            margin-top: -5px; text-transform: lowercase;
-        }
-
-        /* Click Instruction */
-        .click-hint {
-            margin-top: 40px; padding: 10px 30px;
-            border: 1px solid #444; border-radius: 25px;
-            color: #ccc; font-size: 0.8rem; letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-    </style>
-</head>
-<body onclick="enterSite()">
-
-    <div id="intro-screen">
-        <div class="neon-swirl"></div>
-
-        <h1 class="brand-name">BALOCH</h1>
-        <p class="sub-text">movies</p>
-
-        <div class="click-hint">CLICK ANYWHERE TO OPEN WEBSITE</div>
-    </div>
-
-    <script>
-        function enterSite() {
-            // Screen ko fade out karega aur home page par le jayega
-            const screen = document.getElementById('intro-screen');
-            screen.style.opacity = '0';
-            setTimeout(() => {
-                window.location.href = "home.html"; // Aapki movies wali file ka naam
-            }, 800);
-        }
-    </script>
-
-</body>
-</html>
+            display: flex; flex-direction: column
