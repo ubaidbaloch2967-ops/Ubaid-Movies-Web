@@ -5,72 +5,115 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baloch Moviz | Welcome</title>
     <style>
-        /* Full Screen Setup */
+        /* Original Animation Styles */
         body, html {
-            margin: 0; padding: 0; width: 100%; height: 100%;
-            background-color: #000; overflow: hidden;
-            display: flex; justify-content: center; align-items: center;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
             font-family: 'Arial Black', sans-serif;
-            cursor: pointer; /* Click karne ka ishara */
         }
 
-        /* Pure Screen Overlay */
-        #click-layer {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            display: flex; flex-direction: column; justify-content: center;
-            align-items: center; z-index: 9999;
-            background: black;
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 10;
         }
 
-        /* Neon Animation */
-        .neon-glow {
-            position: absolute; width: 300px; height: 150px;
-            background: transparent; z-index: -1;
-            box-shadow: 0 0 40px #f967fb, 0 0 80px #f967fb;
-            border-radius: 50%; filter: blur(40px);
-            animation: breathe 3s infinite ease-in-out;
+        /* Neon Lines Animation Effect */
+        .neon-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 150px;
+            background: transparent;
+            z-index: -1;
         }
 
-        @keyframes breathe {
-            0%, 100% { transform: scale(1); opacity: 0.4; }
-            50% { transform: scale(1.4); opacity: 0.7; }
+        .neon-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            box-shadow: 0 0 20px #f967fb, 0 0 40px #f967fb, 0 0 60px #f967fb;
+            filter: blur(20px);
+            opacity: 0.6;
+            animation: pulse 2s infinite ease-in-out;
         }
 
-        /* Brand Text */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.2); opacity: 0.9; }
+        }
+
+        /* Branding Text */
         h1 {
-            font-size: 5rem; color: white; margin: 0;
-            letter-spacing: 15px; text-transform: uppercase;
+            font-size: 4rem;
+            color: white;
+            margin: 0;
+            letter-spacing: 15px;
+            text-transform: uppercase;
+            animation: fadeIn 2s ease-in forwards;
         }
 
         p {
-            color: #777; font-size: 1.2rem; letter-spacing: 5px;
-            margin-top: -10px; text-transform: lowercase;
+            color: #888;
+            font-size: 1.2rem;
+            letter-spacing: 5px;
+            margin-top: -10px;
+            text-transform: lowercase;
+            opacity: 0;
+            animation: fadeIn 2s ease-in 1s forwards;
         }
 
-        /* Click Instruction */
-        .instruction {
-            margin-top: 50px; color: #555; font-size: 0.9rem;
-            border: 1px solid #333; padding: 10px 25px;
-            border-radius: 30px; letter-spacing: 2px;
-            text-transform: uppercase;
+        /* Professional Button */
+        .enter-btn {
+            margin-top: 50px;
+            padding: 12px 40px;
+            background: transparent;
+            color: white;
+            border: 1px solid #444;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            display: inline-block;
+            transition: 0.5s;
+            opacity: 0;
+            animation: fadeIn 2s ease-in 2s forwards;
+        }
+
+        .enter-btn:hover {
+            background: white;
+            color: black;
+            box-shadow: 0 0 20px rgba(255,255,255,0.5);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
-<body onclick="startWebsite()">
+<body>
 
-    <div id="click-layer">
-        <div class="neon-glow"></div>
+    <div class="container">
+        <div class="neon-bg">
+            <div class="neon-lines"></div>
+        </div>
+
         <h1>BALOCH</h1>
         <p>movies</p>
-        <div class="instruction">CLICK ANYWHERE TO ENTER</div>
-    </div>
 
-    <script>
-        function startWebsite() {
-            // Click karte hi home page par redirect karega
-            window.location.href = "home.html"; 
-        }
-    </script>
+        <a href="home.html" class="enter-btn">BALOCH MOVIES DOWNLOADING WEBSITE</a>
+    </div>
 
 </body>
 </html>
