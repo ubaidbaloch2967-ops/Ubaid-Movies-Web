@@ -3,127 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baloch Moviz | Home</title>
+    <title>Baloch Movies | Explore</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        :root { --neon: #f967fb; --bg: #0f101a; --card: #1e1f2b; }
-        body { background: var(--bg) !important; color: white; font-family: 'Segoe UI', sans-serif; }
-        
-        /* Navbar Branding */
-        nav { background: #000 !important; border-bottom: 2px solid var(--neon); box-shadow: 0 0 10px var(--neon); }
-        .navbar-brand { font-weight: bold; color: var(--neon) !important; letter-spacing: 2px; }
-        
-        /* Movie Card & Buttons */
-        .movie-card { padding: 12px; }
-        .movie-container { background: var(--card); border-radius: 10px; overflow: hidden; border: 1px solid #2a2b3d; }
-        .movie-info { background: #111; padding: 8px; text-align: center; }
-        .movie-title { font-size: 0.75rem; font-weight: 600; height: 32px; overflow: hidden; }
-        .btn-download-now { background: var(--neon); color: black !important; border: none; width: 100%; font-size: 0.7rem; font-weight: 800; padding: 6px; text-transform: uppercase; }
+        :root {
+            --color-bg: #1a1b29; /* Deep dark blue */
+            --color-nav: #6065ac;
+            --color-card: #272532;
+            --neon-pink: #f967fb;
+        }
 
-        /* LinksZilla Style Button */
-        .quality-btn { display: block; width: 100%; margin: 8px 0; padding: 12px; border-radius: 8px; font-weight: bold; color: white !important; text-decoration: none !important; text-align: center; }
-        .q-1080 { background: #8e44ad; } .q-720 { background: #2980b9; } .q-480 { background: #c0392b; }
-        
-        .modal-content { background: #161722; border: 2px solid var(--neon); border-radius: 15px; }
-        .ss-area { background: #000; padding: 5px; border-radius: 8px; border: 1px solid #444; }
+        body {
+            background-color: var(--color-bg) !important;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Navbar Styling */
+        nav {
+            background: var(--color-nav) !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+        nav a {
+            color: #ebe5e2 !important;
+            font-size: 1.8rem !important;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* Search Input */
+        #search {
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid var(--neon-pink);
+            color: white;
+            padding: 10px 20px;
+        }
+
+        /* Movie Card Styling */
+        .movie-card {
+            margin-bottom: 30px;
+            transition: transform 0.4s ease;
+        }
+        .movie-card:hover {
+            transform: scale(1.08);
+        }
+        .movie-card img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+        .movie-info {
+            background: var(--color-card);
+            padding: 15px;
+            border-radius: 0 0 12px 12px;
+            margin-top: -10px;
+            text-align: center;
+        }
+        .movie-info h3 {
+            font-size: 1.1rem;
+            margin: 10px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .rating {
+            background: var(--neon-pink);
+            color: black;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        /* Pagination Buttons */
+        .page-link {
+            background: var(--color-nav) !important;
+            color: white !important;
+            border: none !important;
+            margin: 0 5px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-dark sticky-top">
-        <a class="navbar-brand">BALOCH MOVIZ</a>
-        <form id="search-form" class="form-inline ml-auto">
-            <input id="search-input" class="form-control form-control-sm bg-dark text-white border-secondary" type="search" placeholder="Search...">
-        </form>
+    <nav class="fixed-top d-flex justify-content-between align-items-center navbar p-2">
+      <a href="index.html" class="navbar-brand">Movie Finder</a>
+      <form id="search-form" class="form-inline">
+        <input id="search" class="form-control" type="search" placeholder="Search Movie..." aria-label="Search" />
+      </form>
     </nav>
 
-    <div class="container-fluid mt-4">
-        <h5 class="text-center mb-4" style="color: var(--neon);">NEWEST UPLOAD</h5>
-        <div class="row justify-content-center">
-            <div class="col-6 col-md-3 movie-card">
-                <div class="movie-container" onclick="openDustBunny()">
-                    <img src="https://image.tmdb.org/t/p/w500/mXpS9t9wS6vY9H6Y6O3v7Y7Z1F.jpg" class="w-100">
-                    <div class="movie-info">
-                        <div class="movie-title">Dust Bunny (2025)</div>
-                    </div>
-                    <button class="btn-download-now">DOWNLOAD NOW</button>
-                </div>
-            </div>
-        </div>
-
-        <hr style="border-color: #333;">
-        <h5 class="text-center my-4">Trending Movies</h5>
-        <div id="movie-grid" class="row">
-            </div>
+    <div class="container-fluid mt-5 pt-5">
+        <div id="movie-content" class="row d-flex justify-content-center">
+          </div>
     </div>
 
-    <div class="modal fade" id="dlModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content p-4 text-center">
-                <h6 id="modal-movie-title" class="font-weight-bold mb-3"></h6>
-                <div class="ss-area mb-3">
-                    <img id="modal-movie-img" src="" class="w-100 rounded">
-                </div>
-                <p class="small text-muted mb-2">|| Direct Unlocked Links ||</p>
-                <a href="#" id="link-1080" target="_blank" class="quality-btn q-1080">1080p Download</a>
-                <a href="#" id="link-720" target="_blank" class="quality-btn q-720">720p Download</a>
-                <a href="#" id="link-480" target="_blank" class="quality-btn q-480">480p Download</a>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center pb-5">
+        <li class="page-item"><a id="previous" class="btn page-link">Previous</a></li>
+        <li class="page-item"><a id="next" class="btn page-link">Next</a></li>
+      </ul>
+    </nav>
 
     <script>
         const API_KEY = "249f222afb1002186f4d88b2b5418b55";
-        
-        // LinksZilla logic for Dust Bunny
-        function openDustBunny() {
-            document.getElementById("modal-movie-title").innerText = "Dust Bunny (2025)";
-            document.getElementById("modal-movie-img").src = "https://image.tmdb.org/t/p/w500/mXpS9t9wS6vY9H6Y6O3v7Y7Z1F.jpg";
-            
-            // Your LinkZilla Link
-            const linksZilla = "https://secure.linkszilla.top/view/C64OE4_BMQZwDWek4bOa";
-            
-            document.getElementById("link-1080").href = linksZilla;
-            document.getElementById("link-720").href = linksZilla;
-            document.getElementById("link-480").href = linksZilla;
-            
-            $('#dlModal').modal('show');
+        const IMAGE_PATH = "https://image.tmdb.org/t/p/w500";
+        const API_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&sort_by=popularity.desc&page=`;
+        const API_SEARCH = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=`;
+
+        let currentPage = 1;
+        const mainContent = document.getElementById("movie-content");
+        const form = document.getElementById("search-form");
+        const searchInput = document.getElementById("search");
+
+        // Fetch movies on load
+        loadMovies(API_URL + currentPage);
+
+        async function loadMovies(url) {
+            const res = await fetch(url);
+            const data = await res.json();
+            displayMovies(data.results);
         }
 
-        async function getTrending() {
-            const res = await fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`);
-            const data = await res.json();
-            const grid = document.getElementById("movie-grid");
-            data.results.forEach(m => {
-                if(!m.poster_path) return;
-                const card = document.createElement("div");
-                card.className = "col-6 col-md-3 col-lg-2 movie-card";
-                card.innerHTML = `
-                    <div class="movie-container" onclick="showDL('${m.title.replace(/'/g, "\\'")}', 'https://image.tmdb.org/t/p/w500${m.backdrop_path}')">
-                        <img src="https://image.tmdb.org/t/p/w500${m.poster_path}" class="w-100">
-                        <div class="movie-info">
-                            <div class="movie-title">${m.title}</div>
-                        </div>
-                        <button class="btn-download-now">DOWNLOAD NOW</button>
-                    </div>`;
-                grid.appendChild(card);
+        function displayMovies(movies) {
+            mainContent.innerHTML = "";
+            movies.forEach((movie) => {
+                const { poster_path, title, vote_average } = movie;
+                const movieDiv = document.createElement("div");
+                movieDiv.classList.add("col-6", "col-md-4", "col-lg-2", "movie-card");
+
+                movieDiv.innerHTML = `
+                    <img src="${poster_path ? IMAGE_PATH + poster_path : 'https://via.placeholder.com/500x750'}" alt="${title}">
+                    <div class="movie-info">
+                        <h3>${title}</h3>
+                        <span class="rating">${vote_average}</span>
+                    </div>
+                `;
+                mainContent.appendChild(movieDiv);
             });
         }
 
-        function showDL(t, img) {
-            document.getElementById("modal-movie-title").innerText = t;
-            document.getElementById("modal-movie-img").src = img;
-            const q = encodeURIComponent(t);
-            document.getElementById("link-1080").href = `https://www.google.com/search?q=${q}+1080p+download`;
-            document.getElementById("link-720").href = `https://www.google.com/search?q=${q}+720p+download`;
-            document.getElementById("link-480").href = `https://www.google.com/search?q=${q}+480p+download`;
-            $('#dlModal').modal('show');
-        }
+        // Search Functionality
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const term = searchInput.value;
+            if (term) {
+                loadMovies(API_SEARCH + term);
+                searchInput.value = "";
+            }
+        });
 
-        getTrending();
+        // Pagination Buttons
+        document.getElementById("next").addEventListener("click", () => {
+            currentPage++;
+            loadMovies(API_URL + currentPage);
+            window.scrollTo(0,0);
+        });
+
+        document.getElementById("previous").addEventListener("click", () => {
+            if (currentPage > 1) {
+                currentPage--;
+                loadMovies(API_URL + currentPage);
+                window.scrollTo(0,0);
+            }
+        });
     </script>
 </body>
 </html>
