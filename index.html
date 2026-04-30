@@ -4,120 +4,109 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baloch Movies | Intro</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@400&display=swap" rel="stylesheet">
-    
     <style>
-        /* CSS from Intro (Cher-chaar nahi ki) */
-        body { margin: 0; overflow: hidden; background-color: #000; font-family: 'Montserrat', sans-serif; height: 100vh; touch-action: none; }
+        /* --- AAPKA ORIGINAL INTRO CSS --- */
+        body { margin: 0; overflow: hidden; background-color: #000; font-family: 'Montserrat', sans-serif; cursor: pointer; }
         canvas { display: block; position: fixed; top: 0; left: 0; z-index: 1; }
-        .hero { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; width: 100%; z-index: 10; pointer-events: none; transition: opacity 1s ease; }
+        .hero { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; width: 100%; z-index: 10; pointer-events: none; }
         .hero h1 { color: white; font-size: clamp(2.5rem, 12vw, 5rem); margin: 0; letter-spacing: 10px; font-weight: bold; text-transform: uppercase; }
         .hero h3 { color: rgba(255, 255, 255, 0.5); font-size: 1rem; margin: 0 0 25px 0; letter-spacing: 4px; }
+        
+        /* Tap Indicator (Chota sa hint user ke liye) */
+        .tap-hint { color: rgba(255,255,255,0.3); font-size: 0.8rem; margin-top: 20px; animation: blink 1.5s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
 
-        /* Matchstick CSS Section */
-        #match-section {
-            display: none; /* Shuru mein hidden */
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 30; flex-direction: column; justify-content: center; align-items: center;
-            background-color: #0d0d0f; font-family: 'Inter', sans-serif;
+        /* --- MATCHSTICK SECTION CSS --- */
+        #match-screen {
+            display: none; 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #0d0d0f; z-index: 100;
+            flex-direction: column; justify-content: center; align-items: center;
         }
-        #instruction { color: rgba(255, 255, 255, 0.4); margin-bottom: 20px; font-size: 1.2rem; }
-        .scene { position: relative; width: 100px; height: 300px; cursor: pointer; }
-        .match-stick { width: 15px; height: 200px; background: #d2b48c; margin: 0 auto; border-radius: 2px; }
-        .match-head { width: 20px; height: 30px; background: #800000; border-radius: 50% 50% 20% 20%; margin: 0 auto; margin-bottom: -5px; position: relative; z-index: 2; transition: background 0.3s; }
-        .flame-container { position: absolute; top: -50px; left: 50%; transform: translateX(-50%); display: none; }
-        .flame { width: 30px; height: 60px; background: linear-gradient(to top, #ff4500, #ffff00); border-radius: 50% 50% 20% 20%; filter: blur(2px); animation: flicker 0.1s infinite alternate; }
-        @keyframes flicker { 0% { transform: scale(1); } 100% { transform: scale(1.1) rotate(2deg); } }
+        .scene { position: relative; width: 60px; height: 250px; }
+        .match-stick { width: 10px; height: 150px; background: #d2b48c; margin: 0 auto; border-radius: 2px; }
+        .match-head { width: 16px; height: 22px; background: #800000; border-radius: 8px; margin: 0 auto; margin-bottom: -2px; position: relative; }
+        .flame { position: absolute; top: -40px; left: 50%; transform: translateX(-50%); width: 25px; height: 50px; 
+                 background: radial-gradient(circle, #ffff00, #ff4500); border-radius: 50% 50% 20% 20%; 
+                 display: none; filter: blur(1px); animation: flicker 0.1s infinite; }
+        @keyframes flicker { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
 
-        /* Main Website CSS */
-        #main-site { display: none; position: relative; z-index: 40; background: #000; color: white; min-height: 100vh; padding: 20px; }
+        /* --- MAIN SITE CSS --- */
+        #main-site { display: none; position: relative; z-index: 200; background: #000; min-height: 100vh; color: white; padding: 20px; text-align: center; }
     </style>
 </head>
-<body>
-
-    <canvas id="introCanvas"></canvas>
-    <div class="hero" id="introHero">
+<body onclick="startExperience()"> <canvas id="bgCanvas"></canvas>
+    <div class="hero" id="intro-hero">
         <h1>BALOCH</h1>
         <h3>MOVIES</h3>
         <div style="border: 1.5px solid rgba(255,255,255,0.3); border-radius: 50px; padding: 12px 20px; color: white; display: inline-block;">
             BALOCH MOVIES DOWNLOADING WEBSITE
         </div>
+        <p class="tap-hint">Tap anywhere to enter</p>
     </div>
 
-    <div id="match-section">
-        <p id="instruction">Swipe fast to strike & Enter</p>
-        <div class="scene">
-            <div class="match" id="match">
-                <div class="flame-container" id="flame-container">
-                    <div class="flame"></div>
-                </div>
-                <div class="match-head" id="match-head"></div>
-                <div class="match-stick"></div>
-            </div>
+    <div id="match-screen">
+        <p style="color: rgba(255,255,255,0.5); margin-bottom: 20px;">Swipe fast to strike</p>
+        <div class="scene" id="match-area">
+            <div class="flame" id="flame"></div>
+            <div class="match-head" id="head"></div>
+            <div class="match-stick"></div>
         </div>
     </div>
 
     <div id="main-site">
-        <h1 style="color: #ff00ff; text-align: center;">BALOCH MOVIES</h1>
-        <p style="text-align: center;">Welcome! Movies are loading...</p>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-            <div style="background: #222; height: 200px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">Movie Card</div>
-            <div style="background: #222; height: 200px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">Movie Card</div>
-        </div>
+        <h1 style="color: #ff00ff;">BALOCH MOVIES</h1>
+        <p>Your content goes here...</p>
     </div>
 
     <script>
-        // --- 1. Intro to Matchstick Transition ---
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('introHero').style.opacity = '0';
-                document.getElementById('introCanvas').style.display = 'none';
-                
-                setTimeout(() => {
-                    document.getElementById('introHero').style.display = 'none';
-                    document.getElementById('match-section').style.display = 'flex';
-                }, 1000);
-            }, 4000); // 4 seconds intro
-        });
+        // 1. Click Function: Intro se Matchstick par jane ke liye
+        function startExperience() {
+            const introHero = document.getElementById('intro-hero');
+            const bgCanvas = document.getElementById('bgCanvas');
+            const matchScreen = document.getElementById('match-screen');
 
-        // --- 2. Matchstick Logic ---
-        const match = document.getElementById('match');
-        const matchHead = document.getElementById('match-head');
-        const flame = document.getElementById('flame-container');
-        let lastY = 0;
-
-        match.addEventListener('touchstart', (e) => {
-            lastY = e.touches[0].clientY;
-        });
-
-        match.addEventListener('touchmove', (e) => {
-            let currentY = e.touches[0].clientY;
-            let speed = Math.abs(currentY - lastY);
-
-            if (speed > 20) { // Fast swipe detection
-                ignite();
+            // Agar Intro screen active hai tabhi switch karein
+            if (matchScreen.style.display !== 'flex' && document.getElementById('main-site').style.display !== 'block') {
+                introHero.style.display = 'none';
+                bgCanvas.style.display = 'none';
+                matchScreen.style.display = 'flex';
+                document.body.style.cursor = 'default';
             }
-            lastY = currentY;
+        }
+
+        // 2. Matchstick Swipe Logic (Mobile & Desktop)
+        const matchArea = document.getElementById('match-area');
+        const head = document.getElementById('head');
+        const flame = document.getElementById('flame');
+        let startY = 0;
+
+        matchArea.addEventListener('touchstart', (e) => { 
+            e.stopPropagation(); // Click event ko trigger hone se rokta hai
+            startY = e.touches[0].clientY; 
         });
 
-        // For Mouse users
-        match.addEventListener('mousedown', () => {
-            match.onmousemove = (e) => ignite();
+        matchArea.addEventListener('touchmove', (e) => {
+            let moveY = e.touches[0].clientY;
+            if (Math.abs(startY - moveY) > 40) { ignite(); }
         });
-        window.addEventListener('mouseup', () => match.onmousemove = null);
+
+        matchArea.addEventListener('mousedown', (e) => {
+            e.stopPropagation();
+            matchArea.onmousemove = () => ignite();
+        });
 
         function ignite() {
-            matchHead.style.background = '#333'; // Head becomes burnt
+            head.style.background = '#333';
             flame.style.display = 'block';
-            document.getElementById('instruction').innerText = "Entering Baloch Movies...";
-
-            // Wait 1.5 seconds then show main site
+            
             setTimeout(() => {
-                document.getElementById('match-section').style.display = 'none';
+                document.getElementById('match-screen').style.display = 'none';
                 document.getElementById('main-site').style.display = 'block';
                 document.body.style.overflow = 'auto';
-            }, 1500);
+            }, 1200);
         }
     </script>
-</body>
+
+    </body>
 </html>
