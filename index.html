@@ -3,113 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trusted Haji G | Official SMM</title>
+    <title>Trusted Haji G | Professional SMM</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { background-color: #000; color: white; font-family: 'Inter', sans-serif; margin: 0; }
         
-        /* Cover Background with Blur Effect */
-        .header-bg {
+        /* Full Width Cover Photo */
+        .cover-wrapper {
             width: 100%;
-            height: 200px;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.2), #000), url('https://via.placeholder.com/800x400/1e293b/FFFFFF?text=Trusted+Haji+G+Cover');
-            background-size: cover;
-            background-position: center;
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+        .cover-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.8);
         }
 
-        /* Profile Lightning Glow */
-        .profile-container {
-            margin-top: -60px; /* Overlap with cover */
+        /* Overlapping Profile with Lightning */
+        .profile-section {
             position: relative;
+            margin-top: -65px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            z-index: 10;
         }
-        .profile-pic {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 4px solid #f59e0b;
+        .profile-container {
             position: relative;
-            z-index: 5;
-            object-fit: cover;
-            box-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
-        }
-        .lightning-bolt {
-            position: absolute;
             width: 130px;
             height: 130px;
+        }
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 4px solid #f59e0b;
+            object-fit: cover;
+            position: relative;
+            z-index: 5;
+            box-shadow: 0 0 25px rgba(0,0,0,0.8);
+        }
+        /* Lightning Aura Effect */
+        .lightning-aura {
+            position: absolute;
+            top: -5px; left: -5px; right: -5px; bottom: -5px;
             border-radius: 50%;
             border: 2px solid #fbbf24;
-            filter: blur(8px);
-            animation: thunder 0.8s infinite alternate;
-            z-index: 1;
+            filter: blur(10px);
+            animation: flash 1s infinite alternate;
         }
-        @keyframes thunder {
-            0% { opacity: 0.3; transform: scale(1); }
-            100% { opacity: 1; transform: scale(1.15); box-shadow: 0 0 40px #f59e0b; }
+        @keyframes flash {
+            0% { opacity: 0.2; transform: scale(0.95); }
+            100% { opacity: 0.9; transform: scale(1.1); box-shadow: 0 0 40px #f59e0b; }
         }
 
-        /* Glassmorphism Buttons */
-        .btn-link {
-            background: rgba(255, 255, 255, 0.05);
+        /* Buttons Style */
+        .link-container { padding: 25px; }
+        .action-btn {
+            background: rgba(255, 255, 255, 0.07);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px);
-            border-radius: 16px;
-            padding: 16px 20px;
-            margin-bottom: 15px;
+            backdrop-filter: blur(15px);
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 16px;
             display: flex;
             align-items: center;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: 0.3s;
+            text-decoration: none;
+            color: white;
         }
-        .btn-link:hover {
-            background: rgba(245, 158, 11, 0.1);
+        .action-btn:hover {
+            background: rgba(245, 158, 11, 0.15);
             border-color: #f59e0b;
-            transform: scale(1.05);
+            transform: translateY(-3px);
         }
-        .icon-box {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            border-radius: 12px;
+        .icon-circle {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(45deg, #f59e0b, #fbbf24);
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: black;
-            font-size: 20px;
-            margin-right: 15px;
+            color: #000;
+            font-size: 22px;
+            margin-right: 18px;
         }
-        .verified { color: #38bdf8; margin-left: 6px; font-size: 18px; }
+        .verified-icon { color: #38bdf8; margin-left: 8px; }
     </style>
 </head>
 <body>
 
-<div class="max-w-md mx-auto min-h-screen border-x border-gray-800 bg-black">
-    <div class="header-bg"></div>
-
-    <div class="profile-container">
-        <div class="lightning-bolt"></div>
-        <img src="https://via.placeholder.com/150/f59e0b/000000?text=Logo" class="profile-pic" alt="Haji G">
+<div class="max-w-md mx-auto min-h-screen bg-black shadow-2xl relative border-x border-gray-900">
+    
+    <div class="cover-wrapper">
+        <img src="https://kommodo.ai/i/chWv7hYLva9MtooR9Xpk" class="cover-img" alt="Cover">
     </div>
 
-    <div class="text-center px-6 mt-4">
-        <h1 class="text-3xl font-black flex justify-center items-center">
-            Trusted Haji G <i class="fas fa-check-circle verified"></i>
+    <div class="profile-section">
+        <div class="profile-container">
+            <div class="lightning-aura"></div>
+            <img src="https://kommodo.ai/i/22THJegZjD4UQd3BM6pi" class="profile-pic" alt="Profile">
+        </div>
+        
+        <h1 class="text-3xl font-black mt-4 flex items-center">
+            Trusted Haji G <i class="fas fa-check-circle verified-icon text-xl"></i>
         </h1>
-        <p class="text-gray-400 mt-2 text-sm leading-relaxed">
-            Leading SMM Expert | Specializing in Organic Growth <br>
-            <span class="text-amber-500 font-bold uppercase tracking-widest text-xs">BaLoch Creation</span>
-        </p>
+        <p class="text-gray-400 text-sm mt-1 font-medium tracking-wide">SMM EXPERT & ORGANIC BOOSTER</p>
     </div>
 
-    <div class="px-6 mt-10">
-        <a href="https://wa.me/923702866763?text=Hi+Haji+G+TikTok+Views+Rates" class="btn-link">
-            <div class="icon-box"><i class="fab fa-tiktok"></i></div>
+    <div class="link-container">
+        <a href="https://wa.me/923702866763?text=Haji%20G%20TikTok%20Views%20Rates" class="action-btn">
+            <div class="icon-circle"><i class="fab fa-tiktok"></i></div>
             <div class="flex-grow">
-                <p class="text-white font-bold">TikTok Views</p>
-                <p class="text-gray-500 text-xs">1k = Rs 100 (Instant)</p>
+                <p class="font-bold text-lg">TikTok Views</p>
+                <p class="text-gray-500 text-xs">Fast & Non-Drop (Rs 100/1k)</p>
             </div>
             <i class="fas fa-arrow-right text-gray-700"></i>
         </a>
 
-        <a href="
+        <a href="https://wa.me/923702866763?text=Haji%20G%20TikTok%20Likes%20Rates" class="action-btn">
+            <div class="icon-circle"><i class="fas fa-heart"></i></div>
+            <div class="flex-grow">
+                <p class="font-bold text-lg">TikTok Likes</p>
+                <p class="text-gray-500 text-xs">Real Engagement (Rs 450/1k)</p>
+            </div>
+            <i class="fas fa-arrow-right text-gray-700"></i>
+        </a>
+
+        <a href="https://wa.me/923702866763?text=Haji%20G%20TikTok%20Followers%20Rates" class="action-btn">
+            <div class="icon-circle"><i class="fas fa-user-plus"></i></div>
+            <div class="flex-grow">
+                <p class="font-bold text-lg">TikTok Followers</p>
+                <p class="text-gray-500 text-xs">Lifetime Refill (Rs 750/1k)</p>
+            </div>
+            <i class="fas fa-arrow-right text-gray-700"></i>
+        </a>
+
+        <a href="https://wa.me/923702866763" class="action-btn border-amber-500/30">
+            <div class="icon-circle"><i class="fab fa-whatsapp"></i></div>
+            <div class="flex-grow">
+                <p class="font-bold text-lg">Direct WhatsApp</p>
+                <p class="text-gray-500 text-xs">Contact Haji G Directly</p>
+            </div>
+            <i class="fas fa-comment-dots text-amber-500"></i>
+        </a>
+    </div>
+
+    <footer class="text-center py-8 opacity-40">
+        <p class="text-[10px] tracking-[4px] uppercase font-bold text-amber-500">BaLoch Creation</p>
+    </footer>
+</div>
+
+</body>
+</html>
