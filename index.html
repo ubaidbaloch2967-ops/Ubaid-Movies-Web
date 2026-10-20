@@ -1,163 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trusted Haji G | Professional SMM</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body { background-color: #000; color: white; font-family: 'Inter', sans-serif; margin: 0; }
-        
-        /* Full Width Cover Photo */
-        .cover-wrapper {
-            width: 100%;
-            height: 220px;
-            overflow: hidden;
-            position: relative;
-        }
-        .cover-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: brightness(0.8);
-        }
-
-        /* Overlapping Profile with Lightning */
-        .profile-section {
-            position: relative;
-            margin-top: -65px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            z-index: 10;
-        }
-        .profile-container {
-            position: relative;
-            width: 130px;
-            height: 130px;
-        }
-        .profile-pic {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 4px solid #f59e0b;
-            object-fit: cover;
-            position: relative;
-            z-index: 5;
-            box-shadow: 0 0 25px rgba(0,0,0,0.8);
-        }
-        /* Lightning Aura Effect */
-        .lightning-aura {
-            position: absolute;
-            top: -5px; left: -5px; right: -5px; bottom: -5px;
-            border-radius: 50%;
-            border: 2px solid #fbbf24;
-            filter: blur(10px);
-            animation: flash 1s infinite alternate;
-        }
-        @keyframes flash {
-            0% { opacity: 0.2; transform: scale(0.95); }
-            100% { opacity: 0.9; transform: scale(1.1); box-shadow: 0 0 40px #f59e0b; }
-        }
-
-        /* Buttons Style */
-        .link-container { padding: 25px; }
-        .action-btn {
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            border-radius: 18px;
-            padding: 18px;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            transition: 0.3s;
-            text-decoration: none;
-            color: white;
-        }
-        .action-btn:hover {
-            background: rgba(245, 158, 11, 0.15);
-            border-color: #f59e0b;
-            transform: translateY(-3px);
-        }
-        .icon-circle {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(45deg, #f59e0b, #fbbf24);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #000;
-            font-size: 22px;
-            margin-right: 18px;
-        }
-        .verified-icon { color: #38bdf8; margin-left: 8px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ubaid Moviz4U</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
+<style>
+  body, html, #app {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+  body {
+    touch-action: none;
+    overflow: hidden;
+    background: #000;
+  }
+  #app {
+    height: 100%;
+    font-family: "Montserrat", sans-serif;
+  }
+  #app a {
+    text-decoration: none;
+    color: #fff;
+  }
+  #canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .hero {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    pointer-events: none;
+  }
+  .hero h1 {
+    color: #fff;
+    font-size: 80px;
+    margin: 0;
+    font-weight: 700;
+    pointer-events: auto;
+  }
+  .hero h3 {
+    color: #fff;
+    font-size: 32px;
+    margin: 0;
+    font-weight: 300;
+    letter-spacing: 5px;
+    pointer-events: auto;
+  }
+  .hero a {
+    margin-top: 20px;
+    opacity: 0.7;
+    font-size: 14px;
+    pointer-events: auto;
+  }
+</style>
 </head>
 <body>
-
-<div class="max-w-md mx-auto min-h-screen bg-black shadow-2xl relative border-x border-gray-900">
-    
-    <div class="cover-wrapper">
-        <img src="https://kommodo.ai/i/chWv7hYLva9MtooR9Xpk" class="cover-img" alt="Cover">
-    </div>
-
-    <div class="profile-section">
-        <div class="profile-container">
-            <div class="lightning-aura"></div>
-            <img src="https://kommodo.ai/i/22THJegZjD4UQd3BM6pi" class="profile-pic" alt="Profile">
-        </div>
-        
-        <h1 class="text-3xl font-black mt-4 flex items-center">
-            Trusted Haji G <i class="fas fa-check-circle verified-icon text-xl"></i>
-        </h1>
-        <p class="text-gray-400 text-sm mt-1 font-medium tracking-wide">SMM EXPERT & ORGANIC BOOSTER</p>
-    </div>
-
-    <div class="link-container">
-        <a href="https://wa.me/923702866763?text=Haji%20G%20TikTok%20Views%20Rates" class="action-btn">
-            <div class="icon-circle"><i class="fab fa-tiktok"></i></div>
-            <div class="flex-grow">
-                <p class="font-bold text-lg">TikTok Views</p>
-                <p class="text-gray-500 text-xs">Fast & Non-Drop (Rs 100/1k)</p>
-            </div>
-            <i class="fas fa-arrow-right text-gray-700"></i>
-        </a>
-
-        <a href="https://wa.me/923702866763?text=Haji%20G%20TikTok%20Likes%20Rates" class="action-btn">
-            <div class="icon-circle"><i class="fas fa-heart"></i></div>
-            <div class="flex-grow">
-                <p class="font-bold text-lg">TikTok Likes</p>
-                <p class="text-gray-500 text-xs">Real Engagement (Rs 450/1k)</p>
-            </div>
-            <i class="fas fa-arrow-right text-gray-700"></i>
-        </a>
-
-        <a href="https://wa.me/923702866763?text=Haji%20G%20TikTok%20Followers%20Rates" class="action-btn">
-            <div class="icon-circle"><i class="fas fa-user-plus"></i></div>
-            <div class="flex-grow">
-                <p class="font-bold text-lg">TikTok Followers</p>
-                <p class="text-gray-500 text-xs">Lifetime Refill (Rs 750/1k)</p>
-            </div>
-            <i class="fas fa-arrow-right text-gray-700"></i>
-        </a>
-
-        <a href="https://wa.me/923702866763" class="action-btn border-amber-500/30">
-            <div class="icon-circle"><i class="fab fa-whatsapp"></i></div>
-            <div class="flex-grow">
-                <p class="font-bold text-lg">Direct WhatsApp</p>
-                <p class="text-gray-500 text-xs">Contact Haji G Directly</p>
-            </div>
-            <i class="fas fa-comment-dots text-amber-500"></i>
-        </a>
-    </div>
-
-    <footer class="text-center py-8 opacity-40">
-        <p class="text-[10px] tracking-[4px] uppercase font-bold text-amber-500">BaLoch Creation</p>
-    </footer>
+<div id="app">
+  <canvas id="canvas"></canvas>
+  <div class="hero">
+    <h1>Ubaid</h1>
+    <h3>Moviz4U</h3>
+    <a target="_blank" href="#">www.ubaidmoviz4u.com</a>
+  </div>
 </div>
 
+<script type="module">
+import TubesCursor from "https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js"
+
+const app = TubesCursor(document.getElementById('canvas'), {
+  tubes: {
+    colors: ["#f967fb", "#53bc28", "#6958d5"],
+    lights: {
+      intensity: 200,
+      colors: ["#83f36e", "#fe8a2e", "#ff008a", "#60aed5"]
+    }
+  }
+})
+
+document.body.addEventListener('click', () => {
+  const colors = randomColors(3)
+  const lightsColors = randomColors(4)
+  app.tubes.setColors(colors)
+  app.tubes.setLightsColors(lightsColors)
+})
+
+function randomColors(count) {
+  return new Array(count).fill(0).map(() => "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0'))
+}
+</script>
 </body>
 </html>
