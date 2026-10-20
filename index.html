@@ -3,101 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ubaid Moviz4U</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
+<title>Ubaid Moviz4U - Fire</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
 <style>
-  body, html, #app {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-  body {
-    touch-action: none;
-    overflow: hidden;
-    background: #000;
-  }
-  #app {
-    height: 100%;
-    font-family: "Montserrat", sans-serif;
-  }
-  #app a {
-    text-decoration: none;
-    color: #fff;
-  }
-  #canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
+  body, html, #app { margin: 0; width: 100%; height: 100%; }
+  body { touch-action: none; overflow: hidden; background: #000; }
+  #app { height: 100%; font-family: "Montserrat", sans-serif; }
+  #canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+  
   .hero {
-    position: relative;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    position: relative; height: 100%; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
     pointer-events: none;
   }
-  .hero h1 {
+
+  /* FIRE TEXT EFFECT */
+  .fire-text {
+    font-size: 90px; font-weight: 900; margin: 0;
     color: #fff;
-    font-size: 80px;
-    margin: 0;
-    font-weight: 700;
-    pointer-events: auto;
+    text-transform: uppercase;
+    background: linear-gradient(to bottom, #fff 30%, #ffae00 50%, #ff3300 70%, #ff0000 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 5px #ff6600) drop-shadow(0 0 15px #ff3300) drop-shadow(0 0 30px #ff0000);
+    animation: flicker 0.15s infinite alternate, shake 0.1s infinite;
+    position: relative;
   }
-  .hero h3 {
-    color: #fff;
-    font-size: 32px;
-    margin: 0;
-    font-weight: 300;
-    letter-spacing: 5px;
-    pointer-events: auto;
+  .fire-sub {
+    font-size: 34px; margin: 0; font-weight: 700; letter-spacing: 8px;
+    color: #ffae00;
+    text-shadow: 0 0 10px #ff6600, 0 0 20px #ff3300, 0 0 40px #ff0000;
+    animation: flicker 0.2s infinite alternate;
   }
-  .hero a {
-    margin-top: 20px;
-    opacity: 0.7;
-    font-size: 14px;
-    pointer-events: auto;
+  .hero a { margin-top: 20px; color: #fff; text-decoration: none; opacity: 0.7; pointer-events: auto; }
+
+  @keyframes flicker {
+    0% { filter: drop-shadow(0 0 5px #ff6600) drop-shadow(0 0 15px #ff3300); opacity: 1; }
+    100% { filter: drop-shadow(0 0 8px #ffae00) drop-shadow(0 0 25px #ff3300) drop-shadow(0 0 40px #ff0000); opacity: 0.9; }
+  }
+  @keyframes shake {
+    0% { transform: translateX(-1px); } 100% { transform: translateX(1px); }
+  }
+
+  /* Girte hue sholay */
+  .embers { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; }
+  .ember { position: absolute; bottom: 45%; width: 4px; height: 4px; background: #ffae00; border-radius: 50%; box-shadow: 0 0 6px #ff6600; animation: fall linear infinite; }
+  @keyframes fall {
+    0% { transform: translateY(0) translateX(0); opacity: 1; }
+    100% { transform: translateY(200px) translateX(30px); opacity: 0; }
   }
 </style>
 </head>
 <body>
 <div id="app">
   <canvas id="canvas"></canvas>
+  <div class="embers" id="embers"></div>
   <div class="hero">
-    <h1>Ubaid</h1>
-    <h3>Moviz4U</h3>
-    <a target="_blank" href="#">www.ubaidmoviz4u.com</a>
-  </div>
-</div>
-
-<script type="module">
-import TubesCursor from "https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js"
-
-const app = TubesCursor(document.getElementById('canvas'), {
-  tubes: {
-    colors: ["#f967fb", "#53bc28", "#6958d5"],
-    lights: {
-      intensity: 200,
-      colors: ["#83f36e", "#fe8a2e", "#ff008a", "#60aed5"]
-    }
-  }
-})
-
-document.body.addEventListener('click', () => {
-  const colors = randomColors(3)
-  const lightsColors = randomColors(4)
-  app.tubes.setColors(colors)
-  app.tubes.setLightsColors(lightsColors)
-})
-
-function randomColors(count) {
-  return new Array(count).fill(0).map(() => "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0'))
-}
-</script>
-</body>
-</html>
+    <h1 class="fire-text">UBAID</h1>
+    <h3 class="fire-sub">MOVIZ4U 🔥</h3>
+    <a target="_blank" href="#">
