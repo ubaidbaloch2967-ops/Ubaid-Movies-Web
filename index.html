@@ -62,4 +62,29 @@
   <div class="hero">
     <h1 class="fire-text">UBAID</h1>
     <h3 class="fire-sub">MOVIZ4U 🔥</h3>
-    <a target="_blank" href="#">
+    <a target="_blank" href="#">www.ubaidmoviz4u.com</a>
+  </div>
+</div>
+
+<script type="module">
+import TubesCursor from "https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js"
+const app = TubesCursor(document.getElementById('canvas'), {
+  tubes: { colors: ["#f967fb", "#53bc28", "#6958d5"], lights: { intensity: 200, colors: ["#83f36e", "#fe8a2e", "#ff008a", "#60aed5"] } }
+})
+document.body.addEventListener('click', () => {
+  app.tubes.setColors(randomColors(3)); app.tubes.setLightsColors(randomColors(4));
+})
+function randomColors(count){ return new Array(count).fill(0).map(() => "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')) }
+
+// Sholay girana
+const embersContainer = document.getElementById('embers');
+for(let i=0; i<40; i++){
+  let e = document.createElement('div'); e.className='ember';
+  e.style.left = (45 + Math.random()*10) + '%';
+  e.style.animationDuration = (1 + Math.random()*2) + 's';
+  e.style.animationDelay = Math.random()*2 + 's';
+  embersContainer.appendChild(e);
+}
+</script>
+</body>
+</html>
